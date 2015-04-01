@@ -1,7 +1,5 @@
 <?php namespace Ace\Dictionary;
 
-use Ace\DictionaryInterface;
-
 /**
 * implements DictionaryInterface using a data grouped by word length
 */
