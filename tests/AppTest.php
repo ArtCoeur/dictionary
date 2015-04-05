@@ -24,7 +24,8 @@ class AppTest extends WebTestCase
     {
         return [
             ['d..', '3', ['dog','dye', 'den', 'din']],
-            ['sta....', '7', ['station','staunch', 'staying']]
+            ['sta....', '7', ['station','staunch', 'staying']],
+            ['.ad..', '5', ['radio']]
         ];
     }
 
