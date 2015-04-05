@@ -18,14 +18,34 @@ $dict_file = __DIR__.'/data/dict-3';
 $dict = new SortedDictionary($dict_file);
 
 /**
+ * Validate the required params are set
+ */
+$app->before(function(Request $req) use ($app, $logger) {
+    if (!$req->query->has('length')) {
+        $app->abort(404, "Missing length query param");
+    }
+
+    $length = intval($req->query->get('length'));
+    if (!$length){
+        $app->abort(404, "Length query param is not an integer");
+    }
+
+    if (!$req->query->has('pattern')){
+        $app->abort(404, "Missing pattern query param");
+    }
+
+    if (strlen($req->query->get('pattern')) == 0){
+        $app->abort(404, "Empty pattern query param");
+    }
+});
+
+/**
  * pattern=regexp
  * length=length of words to find
+ * allow pattern to be optional and respond with all words with this length?
  */
 $app->get("/words", function(Request $req) use ($app, $dict, $logger){
-    $pattern = $req->query->get('pattern');
-    $length = $req->query->get('length');
-    $result = $dict->find($pattern, $length);
-    $logger->addDebug(print_r($result,1));
+    $result = $dict->find($req->query->get('pattern'), $req->query->get('length'));
     return $app->json($result);
 });
 
