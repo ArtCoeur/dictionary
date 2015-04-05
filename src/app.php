@@ -49,8 +49,8 @@ $app->get("/words", function(Request $req) use ($app, $dict, $logger){
     return $app->json($result);
 });
 
-$app->error(function (Exception $e) use($logger) {
-    $logger->addError($e->getMessage());
+$app->error(function (Exception $e, Request $req, $code) use($logger) {
+    $logger->addError("code : $code " . $e->getMessage());
     return new Response($e->getMessage());
 });
 
