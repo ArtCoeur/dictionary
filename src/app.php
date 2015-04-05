@@ -18,24 +18,24 @@ $dict_file = __DIR__.'/data/dict-3';
 $dict = new SortedDictionary($dict_file);
 
 /**
- * Validate the required params are set
+ * Validate that the required params are set in the request
  */
 $app->before(function(Request $req) use ($app, $logger) {
     if (!$req->query->has('length')) {
-        $app->abort(404, "Missing length query param");
+        $app->abort(400, "Missing length query param");
     }
 
     $length = intval($req->query->get('length'));
     if (!$length){
-        $app->abort(404, "Length query param is not an integer");
+        $app->abort(400, "Length query param is not an integer");
     }
 
     if (!$req->query->has('pattern')){
-        $app->abort(404, "Missing pattern query param");
+        $app->abort(400, "Missing pattern query param");
     }
 
     if (strlen($req->query->get('pattern')) == 0){
-        $app->abort(404, "Empty pattern query param");
+        $app->abort(400, "Empty pattern query param");
     }
 });
 

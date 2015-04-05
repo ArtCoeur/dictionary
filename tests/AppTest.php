@@ -56,28 +56,28 @@ class AppTest extends WebTestCase
     {
         $this->givenAClient();
         $this->client->request('GET', '/words?pattern=xxxxxxx');
-        $this->assertSame(404, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(400, $this->client->getResponse()->getStatusCode());
     }
 
     public function testRequestWithNonIntegerLengthParamFails()
     {
         $this->givenAClient();
         $this->client->request('GET', '/words?pattern=xxxxxxx&length=x');
-        $this->assertSame(404, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(400, $this->client->getResponse()->getStatusCode());
     }
 
     public function testRequestWithoutPatternParamFails()
     {
         $this->givenAClient();
         $this->client->request('GET', '/words?length=5');
-        $this->assertSame(404, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(400, $this->client->getResponse()->getStatusCode());
     }
 
     public function testRequestWithEmptyPatternParamFails()
     {
         $this->givenAClient();
         $this->client->request('GET', '/words?pattern=&length=5');
-        $this->assertSame(404, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(400, $this->client->getResponse()->getStatusCode());
     }
 
     private function thenTheResponseIsSuccess()
