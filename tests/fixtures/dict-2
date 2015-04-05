@@ -1,0 +1,15 @@
+<?php
+return array (
+  3 => 
+'bat
+mat
+had
+nob',
+  5 => 'iraqi
+irate
+aaron
+abbey',
+7 => 'station
+staunch
+starved'
+);
