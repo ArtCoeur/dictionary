@@ -24,9 +24,9 @@ class SortedDictionary implements DictionaryInterface
     {
         $this->load();    
 
-        // assume that $pattern contains ^ and $ chars
+        // assume that $pattern does not contain ^ and $ chars
         $words = $this->dict[$length];
-        preg_match_all('#'.$pattern.'#m', $words, $matches);
+        preg_match_all('#^'.$pattern.'$#m', $words, $matches);
         return $matches[0];
     }
 
