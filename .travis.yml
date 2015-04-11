@@ -10,4 +10,4 @@ before_script:
     - composer install
 
 script:
-    phpunit ../test/
+    phpunit -c phpunit.xml
