@@ -44,7 +44,8 @@ $app->before(function(Request $req) use ($app, $logger) {
  * length=length of words to find
  * allow pattern to be optional and respond with all words with this length?
  */
-$app->get("/words", function(Request $req) use ($app, $dict, $logger){
+$app->get("/words", function(Request $req) use ($app, $dict, $logger) {
+    $logger->addInfo('/words/ ' . $req->query->get('pattern'));
     $result = $dict->find($req->query->get('pattern'), $req->query->get('length'));
     return $app->json($result);
 });
