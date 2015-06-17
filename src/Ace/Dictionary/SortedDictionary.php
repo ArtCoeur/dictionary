@@ -8,12 +8,12 @@ class SortedDictionary implements DictionaryInterface
     /**
     * @var array of Word data
     */
-    protected $dict = [];
+    private $dict = [];
 
     /**
     * @var string
     */
-    protected $file;
+    private $file;
 
     public function __construct($file)
     {
@@ -22,20 +22,20 @@ class SortedDictionary implements DictionaryInterface
 
     public function find($pattern, $length)
     {
-        $this->load();    
+        $dict = $this->getDict();
 
         // assume that $pattern does not contain ^ and $ chars
-        $words = $this->dict[$length];
+        $words = $dict[$length];
         preg_match_all('#^'.$pattern.'$#m', $words, $matches);
         return $matches[0];
     }
 
     public function words($length)
     {
-        $this->load();    
+        $dict = $this->getDict();
 
-        if (isset($this->dict[$length])){
-            $words = $this->dict[$length];
+        if (isset($dict[$length])){
+            $words = $dict[$length];
             return explode("\n", $words);
         } else {
             return [];
@@ -44,9 +44,9 @@ class SortedDictionary implements DictionaryInterface
 
     public function longestWord()
     {
-        $this->load();
+        $dict = $this->getDict();
 
-        $lengths = array_keys($this->dict);
+        $lengths = array_keys($dict);
         if (!count($lengths)){
             return 0;
         }
@@ -54,10 +54,12 @@ class SortedDictionary implements DictionaryInterface
         return array_pop($lengths);
     }
 
-    protected function load()
+    private function getDict()
     {
         if (!count($this->dict)){
             $this->dict = require($this->file);
         }
+
+        return $this->dict;
     }
 }
